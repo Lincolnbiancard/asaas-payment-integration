@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Interfaces\CustomerServiceInterface;
+use App\Domain\UseCases\CustomerServiceInterface;
+use App\Http\Requests\CreateCustomerRequest;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -12,11 +13,5 @@ class CustomerController extends Controller
     public function __construct(CustomerServiceInterface $customerService)
     {
         $this->customerService = $customerService;
-    }
-
-    public function store(Request $request)
-    {
-        $customerData = $request->all();
-        return $this->customerService->create($customerData);
     }
 }
