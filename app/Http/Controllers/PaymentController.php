@@ -2,23 +2,33 @@
 
 namespace App\Http\Controllers;
 
-use App\Interfaces\PaymentServiceInterface;
-use Illuminate\Http\Request;
+use App\Domain\UseCases\CustomerServiceInterface as UseCasesCustomerServiceInterface;
+use App\Domain\UseCases\PaymentServiceInterface as UseCasesPaymentServiceInterface;
+use App\Http\Requests\ProcessPaymentRequest;
+use Exception;
 
 class PaymentController extends Controller
 {
     private $paymentService;
+    private $customerService;
 
-    public function __construct(PaymentServiceInterface $paymentService)
+    public function __construct(UseCasesPaymentServiceInterface $paymentService, UseCasesCustomerServiceInterface $customerService)
     {
         $this->paymentService = $paymentService;
+        $this->customerService = $customerService;    
     }
 
-    public function store(Request $request)
+    public function store(ProcessPaymentRequest $request) //TODO validar tbm os campos do payment
     {
-        $paymentData = $request->all();
-        return $this->paymentService->processPayment($paymentData);
+        try {
+            $payment = $this->paymentService->processPayment($request->all());
 
-        // Lógica de tratamento do resultado do pagamento
+            return response()->json(['success' => true, 'payment' => $payment], 201);
+
+        } catch (Exception $e) {
+            // Retorne uma resposta de erro adequada
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
+
 }

@@ -170,6 +170,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\PaymentServiceProvider::class,
         App\Providers\CustomerServiceProvider::class,
+        LaravelLegends\PtBrValidator\ValidatorProvider::class,
     ])->toArray(),
 
     /*

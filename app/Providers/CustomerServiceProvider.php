@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Interfaces\CustomerServiceInterface;
-use App\Services\AsaasCustomerService;
+use App\Domain\UseCases\CustomerServiceInterface;
+use App\Services\Asaas\AsaasCustomerService;
 use Illuminate\Support\ServiceProvider;
 
 class CustomerServiceProvider extends ServiceProvider
