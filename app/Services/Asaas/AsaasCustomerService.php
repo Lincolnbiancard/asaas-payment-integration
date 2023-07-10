@@ -2,7 +2,7 @@
 
 namespace App\Services\Asaas;
 
-use App\Domain\UseCases\Payment\Customer\CustomerServiceInterface;
+use App\Domain\UseCases\Customer\CustomerServiceInterface;
 use App\Services\CustomerService;
 use Illuminate\Support\Facades\Http;
 

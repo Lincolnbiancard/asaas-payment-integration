@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Domain\UseCases\Payment\Customer\CustomerServiceInterface;
+use App\Domain\UseCases\Customer\CustomerServiceInterface;
 use App\Models\Customer;
 use Exception;
 
