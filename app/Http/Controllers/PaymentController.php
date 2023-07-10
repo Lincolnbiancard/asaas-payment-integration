@@ -2,20 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Domain\UseCases\CustomerServiceInterface as UseCasesCustomerServiceInterface;
-use App\Domain\UseCases\PaymentServiceInterface as UseCasesPaymentServiceInterface;
+use App\Domain\UseCases\Payment\PaymentServiceInterface;
 use App\Http\Requests\ProcessPaymentRequest;
 use Exception;
 
 class PaymentController extends Controller
 {
     private $paymentService;
-    private $customerService;
-
-    public function __construct(UseCasesPaymentServiceInterface $paymentService, UseCasesCustomerServiceInterface $customerService)
+    public function __construct(PaymentServiceInterface $paymentService)
     {
         $this->paymentService = $paymentService;
-        $this->customerService = $customerService;    
     }
 
     public function store(ProcessPaymentRequest $request) //TODO validar tbm os campos do payment
