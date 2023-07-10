@@ -2,12 +2,11 @@
 
 namespace App\Services\Asaas;
 
-use App\Domain\UseCases\CustomerServiceInterface as UseCasesCustomerServiceInterface;
-use App\Models\Customer;
+use App\Domain\UseCases\Payment\Customer\CustomerServiceInterface;
 use App\Services\CustomerService;
 use Illuminate\Support\Facades\Http;
 
-class AsaasCustomerService implements UseCasesCustomerServiceInterface
+class AsaasCustomerService implements CustomerServiceInterface
 {
     private $apiUrl;
 

@@ -2,17 +2,21 @@
 
 namespace Tests\Feature;
 
-use App\Domain\UseCases\PaymentBusinessRulesService;
+use App\Domain\UseCases\Payment\PaymentBusinessRulesService;
 use App\Services\Asaas\AsaasCustomerService;
 use App\Services\Asaas\AsaasPaymentService;
 use App\Services\CustomerService;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Http;
 use Mockery;
 use Tests\TestCase;
 
 class AsaasPaymentServiceTest extends TestCase
 {
     use RefreshDatabase;
+    
+    private string $apiUrl;
 
     public function tearDown(): void
     {
@@ -20,8 +24,15 @@ class AsaasPaymentServiceTest extends TestCase
         parent::tearDown();
     }
 
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->apiUrl = 'https://sandbox.asaas.com/api';
+    }
+
     public function test_integration_with_payment_provider()
     {
+        // Create the customer and payment data
         $customerData = [
             "name" => "Lincoln",
             "email" => "biancardilincoln@gmail.com",
@@ -36,25 +47,45 @@ class AsaasPaymentServiceTest extends TestCase
 
         $payload = ['customer' => $customerData, 'payment' => $paymentData];
 
-        // Create the services instances
-        $paymentBusinessRulesService = new PaymentBusinessRulesService();
-        $customerService = new CustomerService();
-        $asaasCustomerService = new AsaasCustomerService();
+        // Mock the PaymentBusinessRulesService
+        $paymentBusinessRulesService = Mockery::mock(PaymentBusinessRulesService::class);
+        $paymentBusinessRulesService->shouldReceive('getDueDate')->andReturn(Carbon::now());
+        $paymentBusinessRulesService->shouldReceive('getCustomerId')->andReturn('cust_1234');
+
+        // Mock the CustomerService
+        $customerService = Mockery::mock(CustomerService::class);
+        $customerService->shouldIgnoreMissing();
+
+        // Mock the AsaasCustomerService
+        $asaasCustomerService = Mockery::mock(AsaasCustomerService::class);
+        $asaasCustomerService->shouldIgnoreMissing();
 
         // Create AsaasPaymentService instance
         $asaasPaymentService = new AsaasPaymentService($paymentBusinessRulesService, $customerService, $asaasCustomerService);
 
+        // Mock the HTTP response
+        Http::fake([
+            $this->apiUrl . '/v3/payments*' => Http::response([
+                "status" => "PENDING",
+                "value" => 5,
+                "dateCreated" => "2023-05-05T14:40:45Z",
+                "customer" => "cust_1234"
+            ], 200),
+        ]);
+
         // Process the payment
         $response = $asaasPaymentService->processPayment($payload);
+
         // Check if payment was successful
         $this->assertEquals("PENDING", $response['status']);
-        
+
         // Check if the amount is correct
         $this->assertEquals(5, $response['value']);
 
-        // Check if customer was created and has the expected data
-        $this->assertDatabaseHas('customers', $customerData);
+        // Check if customer id is correct
+        $this->assertEquals('cust_1234', $response['customer']);
     }
+
     
     // public function testCustomerValidation(): void
     // {

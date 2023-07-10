@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Domain\UseCases\CustomerServiceInterface;
+use App\Domain\UseCases\Payment\Customer\CustomerServiceInterface;
 use App\Models\Customer;
 use Exception;
 
@@ -58,7 +58,6 @@ class CustomerService implements CustomerServiceInterface
             'cpfCnpj' => $customer['cpfCnpj']
         ];
     }
-
 
     private function find($cpfCnpj)
     {

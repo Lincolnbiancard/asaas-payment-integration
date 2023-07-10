@@ -9,7 +9,7 @@ class PaymentServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(
-            'App\Domain\UseCases\PaymentServiceInterface',
+            'App\Domain\UseCases\Payment\PaymentServiceInterface',
             'App\Services\Asaas\AsaasPaymentService'  
         );
     }

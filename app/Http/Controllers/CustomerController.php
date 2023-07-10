@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Domain\UseCases\CustomerServiceInterface;
-use App\Http\Requests\CreateCustomerRequest;
-use Illuminate\Http\Request;
+use App\Domain\UseCases\Payment\Customer\CustomerServiceInterface;
 
 class CustomerController extends Controller
 {

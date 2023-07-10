@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\UseCases;
+namespace App\Domain\UseCases\Payment\Customer;
 
 
 interface CustomerServiceInterface
