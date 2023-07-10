@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Domain\UseCases\Payment\Customer\CustomerServiceInterface;
+use App\Domain\UseCases\Customer\CustomerServiceInterface;
 
 class CustomerController extends Controller
 {
