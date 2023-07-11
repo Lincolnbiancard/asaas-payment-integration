@@ -13,6 +13,7 @@ class PaymentBusinessRulesService
     public function getCustomerId(array $paymentData, array $customerServices): string
     {
         $customerData = $paymentData['customer'];
+        // this foreach is because we can have several ways to save the client in the system, today we have it in asaas and in the DB
         foreach($customerServices as $service) {
             $customerData = $service->findOrCreate($customerData);
         }

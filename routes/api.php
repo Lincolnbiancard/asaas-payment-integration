@@ -22,3 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::resource('customers', CustomerController::class);
 Route::resource('payments', PaymentController::class);
+Route::get('payments/{payId}/pix', [PaymentController::class, 'pix']);

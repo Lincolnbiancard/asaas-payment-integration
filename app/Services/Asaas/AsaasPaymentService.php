@@ -7,6 +7,7 @@ use App\Domain\UseCases\Payment\PaymentServiceInterface;
 use App\Exceptions\PaymentProcessingException;
 use App\Factories\PaymentStrategyFactory;
 use App\Services\CustomerService;
+use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 
 class AsaasPaymentService implements PaymentServiceInterface
@@ -28,11 +29,11 @@ class AsaasPaymentService implements PaymentServiceInterface
         $this->asaasCustomerService = $asaasCustomerService;
     }
 
-    public function processPayment($paymentData, $extraData = null)
+    public function processPaymentCreation($paymentData, $extraData = null)
     {
+        
         $dueDate = $this->paymentBusinessRulesService->getDueDate();
         $customerId = $this->paymentBusinessRulesService->getCustomerId($paymentData, [$this->customerService, $this->asaasCustomerService]);
-
         $paymentData['payment']['dueDate'] = $dueDate->format('Y-m-d');
         $paymentData['payment']['customer'] = $customerId;
 
@@ -46,8 +47,17 @@ class AsaasPaymentService implements PaymentServiceInterface
         ])
         ->post($this->apiUrl . '/api/v3/payments', $paymentData['payment']);
         
-        if ($response->successful()) {
-            return $response->json();
+        if (!$response->successful()) {
+            $this->handleErrorResponse($response);
+        }
+    
+        return $response->json();
+    }
+
+    public function handleErrorResponse(Response $response): void
+    {
+        if (isset($response['errors'][0]['description'])) {
+            throw new PaymentProcessingException($response['errors'][0]['description']);
         }
 
         throw new PaymentProcessingException("Erro ao tentar processar o pagamento.");
