@@ -1,4 +1,4 @@
-# 🚀 Seu Projeto Laravel & React
+# 🚀 Projeto de integração com meios de pagamento usando Laravel & React
 
 Este é um projeto desenvolvido utilizando Laravel e React, rodando dentro de containers Docker.
 
