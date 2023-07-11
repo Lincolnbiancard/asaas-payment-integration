@@ -37,7 +37,7 @@ cd asaas-payment-integration
 
 ### 2️⃣ Copie o arquivo .env
 ```bash
-cp .env.example .env
+cp .env.example .env && composer install
 ```
 
 ### 3️⃣ Construa e inicialize o ambiente Docker
