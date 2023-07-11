@@ -19,3 +19,4 @@ yarn-error.log
 /.vscode
 /reports
 /coverage
+front/node_modules

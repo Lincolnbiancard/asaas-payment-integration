@@ -69,6 +69,9 @@ npm start
 ###  Inicie a aplicação
 Agora, o frontend React deve estar rodando em http://localhost:3000.
 
+### Você deve ver uma tela parecida com está:
+![Tela do front](./tela-front.png)
+
 🎉 Parabéns! Agora você deve ter seu projeto Laravel & React rodando em seu ambiente local!
 
 #
