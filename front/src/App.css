@@ -1,0 +1,345 @@
+.payment-page {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 1em;
+  padding: 1em;
+  justify-items: center;
+  align-items: center;
+  background: #161515;
+}
+
+.payment-card {
+  position: relative;
+  width: 200px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.payment-card:hover {
+  transform: scale(1.05);
+}
+
+.payment-card-image {
+  width: 100%;
+  height: 80%;
+  background-size: cover;
+  background-position: center center;
+}
+
+.payment-card-info {
+  height: 20%;
+  background: #292b2c;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5em;
+  font-size: 0.9em;
+  font-weight: bold;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 0 0 15px 15px;
+}
+
+.price-tag {
+  position: absolute;
+  top: -220px;
+  right: 10px;
+  background: rgba(0,0,0,0.7);
+  padding: 5px 10px;
+  font-size: 0.9em;
+  font-weight: bold;
+  color: white;
+  border-radius: 5px;
+  /* this item must be at the top of the card */
+  z-index: 1;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal {
+  background-color: #292b2c;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 100%;
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 18px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+}
+
+.close-button:hover {
+  color: #555;
+}
+
+h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.payment-options {
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #f2f2f2;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #e6e6e6;
+}
+
+
+/* CREDIT CARD */
+.credit-card-form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  z-index: 10;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.credit-card-form form {
+  display: flex;
+  flex-direction: column;
+}
+
+.credit-card-form label {
+  margin-bottom: 10px;
+}
+
+.credit-card-form input {
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.credit-card-form button {
+  padding: 10px;
+  border: none;
+  background-color: #008CBA; /* blue */
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.credit-card-form button:hover {
+  background-color: #007B9A; /* darker blue */
+}
+
+.close-button-credit {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  border: none;
+  background: transparent;
+  font-size: 1.5em;
+  cursor: pointer;
+  /* this button must dark color */
+  color: #555;
+}
+
+.credit-card-form .close-button-credit {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+/* Notificações */
+.notification {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 1em;
+  text-align: center;
+  z-index: 9999;
+  transition: all 0.5s ease;
+  font-family: Arial, sans-serif;
+  font-size: 1.2em;
+  width: 90%;
+  max-width: 500px;
+  margin: 10px auto;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+}
+
+.notification.success {
+  background: #28a745;
+  color: white;
+}
+
+.notification.error {
+  background: #dc3545;
+  color: white;
+}
+
+.notification .message {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.notification-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 0.8em; /* diminuindo ainda mais o tamanho do botão */
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: white;
+}
+
+
+
+/* CREDIT CARD */
+.credit-card-form {
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  padding: 40px;
+  max-width: 800px;
+  margin: 40px auto;
+  overflow-y: auto;
+  height: 90vh;
+}
+
+.credit-card-form h2 {
+  margin-bottom: 20px;
+  font-size: 28px;
+  color: #333;
+}
+
+.credit-card-form h3 {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  font-size: 22px;
+  color: #333;
+}
+
+.credit-card-form .form-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.credit-card-form .form-column {
+  flex: 1;
+  min-width: 220px;
+  padding: 0 10px;
+}
+
+.credit-card-form .form-column label {
+  font-weight: bold;
+  color: #666;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.credit-card-form .form-column input {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  padding: 12px 20px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.credit-card-form button {
+  background-color: #007BFF;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.credit-card-form button:hover {
+  background-color: #0056b3;
+}
+
+.close-button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  font-size: 20px;
+  position: absolute;
+  right: 15px;
+  top: 10px;
+}
+
+@media (max-width: 768px) {
+  .credit-card-form {
+    padding: 20px;
+  }
+
+  .credit-card-form .form-row {
+    flex-direction: column;
+  }
+
+  .credit-card-form .form-column {
+    min-width: 0;
+    padding: 0;
+  }
+}
+
+.credit-card-form .form-column input {
+  padding: 10px 15px; /* ajuste estes valores conforme necessário */
+  margin-bottom: 15px; /* ajuste este valor conforme necessário */
+}
+
+
+
+

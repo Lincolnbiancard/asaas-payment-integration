@@ -3,28 +3,48 @@
 namespace App\Http\Controllers;
 
 use App\Domain\UseCases\Payment\PaymentServiceInterface;
-use App\Http\Requests\ProcessPaymentRequest;
+use App\Http\Requests\ProcessPaymentCreationRequest;
+use App\Http\Resources\PaymentResource;
 use Exception;
+use Illuminate\Support\Facades\Http;
+use Inertia\Inertia;
 
 class PaymentController extends Controller
 {
-    private $paymentService;
+    private PaymentServiceInterface $paymentService;
+    private string $apiUrl;
+
     public function __construct(PaymentServiceInterface $paymentService)
     {
         $this->paymentService = $paymentService;
+        $this->apiUrl = env('ASAAS_API_URL');
     }
 
-    public function store(ProcessPaymentRequest $request) //TODO validar tbm os campos do payment
+    public function store(ProcessPaymentCreationRequest $request) //TODO validar tbm os campos do payment
     {
         try {
-            $payment = $this->paymentService->processPayment($request->all());
+            $payment = $this->paymentService->processPaymentCreation($request->all());
 
-            return response()->json(['success' => true, 'payment' => $payment], 201);
+            return new PaymentResource($payment);
 
         } catch (Exception $e) {
-            // Retorne uma resposta de erro adequada
-            return response()->json(['error' => $e->getMessage()], 500);
+            return response()->json(['errors' => [$e->getMessage()]], 400);
         }
+    }
+
+    public function pix($payId)
+    {
+        $response = Http::withHeaders([
+            'access_token' => env('ASAAS_API_TOKEN'),
+            'Accept' => 'application/json'
+        ])
+        ->post($this->apiUrl . '/api/v3/payments/'. $payId . '/pixQrCode');
+        
+        if (!$response->successful()) {
+            $this->handleErrorResponse($response);
+        }
+    
+        return $response->json();
     }
 
 }

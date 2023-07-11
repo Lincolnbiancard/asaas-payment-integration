@@ -1,0 +1,54 @@
+.thankyou-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+  }
+  
+  .pix-details {
+    margin-top: 20px;
+  }
+  
+  .pix-qrcode {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 20px;
+  }
+  
+  .pix-copy-btn {
+    padding: 10px 20px;
+    background-color: #4caf50; 
+    color: white; 
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 5px;
+  }
+  
+  .pix-copy-btn:hover {
+    background-color: #45a049;
+  }
+
+  .h2-pix {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #070707;
+  }
+
+  .home-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007BFF; 
+    color: white; 
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 5px;
+  }
+  
+  .home-btn:hover {
+    background-color: #0069D9;
+  }
+  

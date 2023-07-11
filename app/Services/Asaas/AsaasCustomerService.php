@@ -22,7 +22,7 @@ class AsaasCustomerService implements CustomerServiceInterface
                 'access_token' => env('ASAAS_API_TOKEN'),
                 'Accept' => 'application/json'
             ])->get($this->apiUrl . '/api/v3/customers/' . $customerData['customer_id']);
-
+            
             if ($response->successful() && !$response->json()['deleted']) {
                 return $this->normalizeCustomerData($response->json());
             }
@@ -42,6 +42,10 @@ class AsaasCustomerService implements CustomerServiceInterface
             $normalizedData = $this->normalizeCustomerData($response->json());
             (new CustomerService())->update($normalizedData);
             return $normalizedData;
+        }
+        
+        if (isset($response['errors'][0]['description'])) {
+            throw new \Exception($response['errors'][0]['description']);
         }
 
         throw new \Exception('Houve um problema com o nosso provedor de pagamentos. Por favor, entre em contato com o suporte.');
