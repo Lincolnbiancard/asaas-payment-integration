@@ -94,4 +94,34 @@ make coverage
 ```
 Os relatórios gerados vão estar disponíveis na pasta `coverage` na raiz do projeto.
 
+#
+# ⚙️Padrões de projeto e estrutura
+Este projeto adota uma série de padrões de projeto consagrados na indústria para garantir um código de alta qualidade, manutenibilidade e escalabilidade. Aqui estão alguns dos padrões e práticas que foram utilizados:
+
+## Clean Architecture
+
+A [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html), ou "Arquitetura Limpa", foi utilizada para estruturar as pastas do sistema. Este é um padrão de projeto que é agnóstico em relação a frameworks, bancos de dados ou quaisquer outras tecnologias. Ele enfatiza a separação de preocupações, tornando o sistema fácil de manter, entender e desenvolver.
+
+## Domain-Driven Design (DDD)
+
+O [Domain-Driven Design](https://dddcommunity.org/learning-ddd/what_is_ddd/) é uma abordagem à arquitetura de software que busca manter o design do software alinhado com o núcleo do negócio. Ele promove uma estreita colaboração entre desenvolvedores e especialistas de domínio, resultando em um software que é flexível e alinhado com as necessidades reais do negócio.
+
+## Strategy
+
+O padrão [Strategy](https://refactoring.guru/design-patterns/strategy) permite que um algoritmo seja selecionado em tempo de execução. Isso proporciona uma grande flexibilidade ao sistema, pois diferentes algoritmos podem ser trocados facilmente.
+
+## Factory
+
+O padrão [Factory](https://refactoring.guru/design-patterns/factory-method) foi utilizado para abstrair a criação de objetos, permitindo que o código seja mais flexível e menos acoplado.
+
+## Form Request e Rules
+
+Form Request e Rules são recursos do Laravel utilizados para lidar com a validação de dados no lado do servidor de uma maneira elegante e organizada.
+
+## Elegants Objects
+
+O projeto também segue os princípios dos [Elegants Objects](https://www.elegantobjects.org/), que é uma abordagem orientada a objetos que preza por objetos imutáveis, interfaces pequenas, composição sobre herança e muitos outros conceitos interessantes que resultam em um código mais limpo e elegante.
+
+Esses padrões de projeto e práticas são adotados para assegurar que o código seja fácil de entender, manter e escalar. Eles são parte integrante do compromisso do projeto em aderir às melhores práticas de desenvolvimento de software.
+
 
